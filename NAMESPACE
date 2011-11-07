@@ -1,0 +1,14 @@
+useDynLib(qtlsim)
+
+# Export functions
+export(anal.all, anal.leaps, anal.mcmc, 
+       anal.multi, anal.multi2, combine.mcmc, 
+       combine.sims, convertOutput, convertSim, 
+       perm, plot.res, sim.mcmc, 
+       sim.null, simbc, which.correct, 
+       which.correct.sub, which.pos)
+
+
+# Import package namespaces
+import(qtl, leaps)
+importFrom(graphics, barplot, abline, par)

@@ -1,0 +1,10 @@
+Package: qtlsim
+Version: 0.73-2
+Date: 11/7/2011
+Depends: qtl, leaps, graphics
+Title: Software for testing QTL analysis via simulations
+Author: Karl W Broman <kbroman@biostat.wisc.edu>
+Maintainer: Karl W Broman <kbroman@biostat.wisc.edu>
+Description: Software for testing QTL analysis via simulations
+License: GPL (version 2 or later)
+URL: http://www.biostat.wisc.edu/~kbroman/software/qtlsim.html

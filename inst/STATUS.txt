@@ -1,0 +1,182 @@
+
+Library qtlsim
+==============
+
+Note: I apologize that the names of functions are so poorly chosen and
+the help files are so poorly written, but I needed to get this done
+quickly, and I didn't use much care.
+
+
+Version 0.73-2, 11/7/2011:
+
+   Added NAMESPACE.
+
+
+Version 0.72-1, 10/26/2009
+
+   Fixed links in help files.
+
+   In anal.leaps, calls to summary.regsubsets() replaced with just summary().
+
+
+Version 0.71-7, 4/22/2009
+
+   To get rid of a warning message in the latest version of R's
+   package checks, changed the name of the functions convert.sim and
+   convert.output to convertSim and convertOutput, respectively.
+
+
+Version 0.71-6, 10/9/2007
+
+   Fixed some slight problems in the help files.
+
+
+Version 0.71-4, 10/16/2006
+
+   Changed the name of the first argument in convert.sim and
+   convert.output so that we don't get a warning message in R CMD
+   check.
+
+
+Version 0.71-3, 6/22/2003
+
+   In calls to C code (using the .C() function), now make use of the
+   PACKAGE argument.  
+
+
+Version 0.71-2, 6/4/2002
+
+   The last column returned by which.correct() should be
+   labelled "incor.unlinked" rather than "incor.total".  This is now
+   fixed. 
+
+   Changed a call to error() to stop() in anal.leaps().  (There is no
+   function error().)
+
+
+Version 0.70-2, 11/19/2001
+
+   Fixed a few minor problems in the help files.
+
+
+Version 0.70, 11/3/2001
+
+   Added forward selection following by backward elimination
+   (method="forwback") to the function anal.leaps().
+
+
+Version 0.69, 11/1/2001
+
+   Edited the documentation files to make them more complete (and to
+   remove a repeated typographical error that resulted in the
+   descriptions of the arguments not appearing in the help files).
+
+   Added a function convert.output() for converting the output of
+   anal.leaps(), anal.mcmc() and perm() for use with which.correct(). 
+
+   Fixed a bug in anal.leaps(): one line was hard-coded for exactly
+   100 markers! 
+
+
+Version 0.68, 08/01/2001
+
+   Revised anal.multi2() back, so that MCMC starts at the null model.
+
+
+Version 0.67, 07/31/2001
+
+    Revised anal.multi2() so that MCMC starts at the model chosen by
+    forward selection with BIC, for the first of the bic_mult given.
+    Revised sim.mcmc() so that one may choose to do only forward
+    selection and MCMC.
+
+
+Version 0.66, 07/26/2001
+
+    The C function forw_perm() was clearly wrong.  I totally re-did it
+    (thanks to advice from/discussion with Saunak Sen!)
+
+
+Version 0.65, 07/26/2001
+
+    There's a bug in anal.all() that causes a core dump.  It turned
+    out to be the simple problem of having the max.steps argument
+    larger than the total number of markers.
+
+
+Version 0.64, 07/23/2001
+
+    Added anal.multi2() to do everything anal.multi() does, plus run
+    MCMC with BIC-delta.
+
+
+Version 0.63, 07/17/2001
+
+    Added plot.cor() function for plotting the output of
+    which.correct().  Revised which.correct() so that the last
+    column is the number of unlinked (rather than total) extraneous
+    loci. 
+
+
+Version 0.62, 07/17/2001
+
+    Added functions combine.sims() combine.mcmc() to combine the
+    simulation results of multiple runs of anal.multi() or sim.mcmc(),
+    respectively.
+
+
+Version 0.61, 07/16/2001
+
+    Revised which.correct() to give both the total number of
+    extraneous loci and the number of extraneous loci on the same
+    chromosome as a QTL.
+
+
+Version 0.60, 07/14/2001
+
+    Added function to call the "leaps" packages to use the
+    branch-and-bound procedure, and ported my old MCMC code
+    to do a simple MCMC model selection procedure
+
+
+Version 0.56, 07/13/2001
+
+    Revised "anal.multi" to contain default LOD thresholds that I
+    estimated via (extensive) computer simulations.
+
+
+Version 0.55, 07/12/2001
+
+    Added "anal.multi" function to do repeated simulations + analysis
+    by ANOVA, CIM, and forward selection with BIC and permutation 
+    tests.
+
+
+Version 0.54, 07/10/2001
+
+    Completed addition of analysis programs, including the "bump
+    finding" function necessary for turning LOD curves from ANOVA/IM
+    and CIM into a selected model.
+
+
+Version 0.53, 07/09/2001
+
+    Added analysis programs.
+
+
+Version 0.51, 07/06/2001
+
+    Implemented an old (1996) simulation program.  Why didn't I look
+    for and reuse this code in the first place?
+
+
+Version 0.50, 06/19/2001
+
+    A new package; the aim is to test different model selection
+    approaches to identifying QTLs in backcrosses, in the case of an
+    additive model.
+
+copyright (c) 2001, Karl W Broman
+Licensed under the GNU General Public License version 2 (June, 1991)
+
+http://www.biostat.wisc.edu/~kbroman/software
