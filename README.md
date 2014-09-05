@@ -1,12 +1,13 @@
-----------------------------------------------------------------------
-R/qtlsim
+## R/qtlsim
+
+[![Build Status](https://travis-ci.org/kbroman/qtlsim.png?branch=master)](https://travis-ci.org/kbroman/qtlsim)
+
 copyright (c) 2001-2012, Karl W Broman
-http://www.biostat.wisc.edu/~kbroman/software/qtlsim
-----------------------------------------------------------------------
 
-R/qtlsim is an R package for test QTL analysis via simulations.
+[R/qtlsim](http://github.com/kbroman/qtlsim) is an R package for test QTL analysis via simulations.
 
-----------------------------------------------------------------------
+### License
+
 This package is free software; you can redistribute it and/or modify it
 under the terms of the GNU General Public License, version 3, as
 published by the Free Software Foundation.
@@ -17,5 +18,5 @@ merchantability or fitness for a particular purpose.  See the GNU
 General Public License for more details.
 
 A copy of the GNU General Public License, version 3, is available at
-http://www.r-project.org/Licenses/GPL-3
-----------------------------------------------------------------------
+[http://www.r-project.org/Licenses/GPL-3](http://www.r-project.org/Licenses/GPL-3)
+
