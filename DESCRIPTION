@@ -7,4 +7,4 @@ Author: Karl W Broman <kbroman@biostat.wisc.edu>
 Maintainer: Karl W Broman <kbroman@biostat.wisc.edu>
 Description: Software for testing QTL analysis via simulations
 License: GPL (version 2 or later)
-URL: http://www.biostat.wisc.edu/~kbroman/software/qtlsim.html
+URL: https://github.com/kbroman/qtlsim
