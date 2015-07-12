@@ -1,11 +1,9 @@
-
-Library qtlsim
-==============
-
-Note: I apologize that the names of functions are so poorly chosen and
-the help files are so poorly written, but I needed to get this done
-quickly, and I didn't use much care.
-
+Revision history for the R/qtlsim package
+----------------------------------------------------------------------
+copyright (c) 2001-2011, Karl W Broman
+Licensed under the GNU General Public License version 2 (June, 1991)
+https://github.com/kbroman/qtlsim
+----------------------------------------------------------------------
 
 Version 0.73-2, 11/7/2011:
 
@@ -41,14 +39,14 @@ Version 0.71-4, 10/16/2006
 Version 0.71-3, 6/22/2003
 
    In calls to C code (using the .C() function), now make use of the
-   PACKAGE argument.  
+   PACKAGE argument.
 
 
 Version 0.71-2, 6/4/2002
 
    The last column returned by which.correct() should be
    labelled "incor.unlinked" rather than "incor.total".  This is now
-   fixed. 
+   fixed.
 
    Changed a call to error() to stop() in anal.leaps().  (There is no
    function error().)
@@ -72,10 +70,10 @@ Version 0.69, 11/1/2001
    descriptions of the arguments not appearing in the help files).
 
    Added a function convert.output() for converting the output of
-   anal.leaps(), anal.mcmc() and perm() for use with which.correct(). 
+   anal.leaps(), anal.mcmc() and perm() for use with which.correct().
 
    Fixed a bug in anal.leaps(): one line was hard-coded for exactly
-   100 markers! 
+   100 markers!
 
 
 Version 0.68, 08/01/2001
@@ -115,7 +113,7 @@ Version 0.63, 07/17/2001
     Added plot.cor() function for plotting the output of
     which.correct().  Revised which.correct() so that the last
     column is the number of unlinked (rather than total) extraneous
-    loci. 
+    loci.
 
 
 Version 0.62, 07/17/2001
@@ -148,7 +146,7 @@ Version 0.56, 07/13/2001
 Version 0.55, 07/12/2001
 
     Added "anal.multi" function to do repeated simulations + analysis
-    by ANOVA, CIM, and forward selection with BIC and permutation 
+    by ANOVA, CIM, and forward selection with BIC and permutation
     tests.
 
 
@@ -175,8 +173,3 @@ Version 0.50, 06/19/2001
     A new package; the aim is to test different model selection
     approaches to identifying QTLs in backcrosses, in the case of an
     additive model.
-
-copyright (c) 2001, Karl W Broman
-Licensed under the GNU General Public License version 2 (June, 1991)
-
-http://www.biostat.wisc.edu/~kbroman/software
