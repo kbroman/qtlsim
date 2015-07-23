@@ -4,7 +4,7 @@
 #
 # copyright (c) 2001-3, Karl W Broman
 # Nov, 2001; July, 2001; June 2003
-# Licensed under the GNU General Public License version 2 (June, 1991)
+# Licensed under the GNU General Public License version 3
 #
 # Part of the R/qtlsim package
 #

@@ -1,5 +1,5 @@
-\name{plot.res}
-\alias{plot.res}
+\name{plot_res}
+\alias{plot_res}
 
 \title{Plot simulation results}
 
@@ -7,7 +7,7 @@
   \code{\link[qtlsim]{anal.multi}} or \code{\link[qtlsim]{sim.mcmc}}.}
 
 \usage{
-plot.res(x, \dots, ylim)
+plot_res(x, \dots, ylim)
 }
 
 \arguments{
@@ -30,8 +30,7 @@ plot.res(x, \dots, ylim)
 \examples{
 \dontrun{output <- anal.multi()}
 \dontrun{tab <- which.correct(output)}
-\dontrun{plot.res(tab)}
+\dontrun{plot_res(tab)}
 }
-                    
-\keyword{hplot}
 
+\keyword{hplot}

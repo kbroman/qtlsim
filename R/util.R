@@ -4,7 +4,7 @@
 #
 # copyright (c) 2001-6, Karl W Broman
 # Oct, 2001; July, 2001, June, 2002; June, 2003; Oct 2006
-# Licensed under the GNU General Public License version 2 (June, 1991)
+# Licensed under the GNU General Public License version 3
 #
 # Part of the R/qtlsim package
 #
@@ -126,12 +126,12 @@ function(...)
   res
 }
 
-plot.res <-
+plot_res <-
 function(x,...,ylim)
 {
   tab <- sapply(x,apply,2,mean)
   par(...)
-  if(missing(ylim)) ylim <- c(0,1)
+  if(missing(ylim) || is.null(ylim)) ylim <- c(0,1)
   if(ncol(tab) == 5) colors <- c("white","gray80","white","gray80","gray50")
   else colors <- c("white",rep("gray80",5),rep("gray50",3),"white")
   if(nrow(tab)==9) {
