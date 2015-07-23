@@ -419,8 +419,6 @@ function(dat, method=c("forward","backward","forwback",
                 "forwardleap","backwardleap"),
          bic.mult=2.5, max.steps=30)
 {
-  if(!require(leaps))
-    stop("Need to have access to the leaps package.")
   method <- match.arg(method)
 
   x <- dat$geno
