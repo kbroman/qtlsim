@@ -8,9 +8,9 @@
 #
 # Part of the R/qtlsim package
 #
-# anal.multi: Simulate backcross, perform ANOVA, CIM, and forward 
+# anal.multi: Simulate backcross, perform ANOVA, CIM, and forward
 #             selection (with BIC and permutation tests) many times
-# anal.multi2:Simulate backcross, perform ANOVA, CIM, forward 
+# anal.multi2:Simulate backcross, perform ANOVA, CIM, forward
 #             selection (with BIC and permutation tests) and MCMC many times
 # anal.all:   Perform ANOVA, CIM and forward selection on a backcross
 # sim.null:   Simulate under the null hypothesis to get LOD thresholds
@@ -18,7 +18,7 @@
 # anal.leaps
 # mcmc
 # sim.mcmc
-# 
+#
 ######################################################################
 
 anal.multi <-
@@ -41,23 +41,23 @@ function(n.sim=1000, cim.steps=c(3,5,7,9,11),bic.mult=c(2,2.5,3),
     max.steps <- max(cim.steps)
   }
   # possible errors in arguments
-  if(length(drop)==1) 
+  if(length(drop)==1)
     drop <- rep(drop,n.cim+1)
   else
     if(length(drop) != n.cim+1)
       stop("Length of drop must be 1 or = 1+n.cim.")
-  if(length(mar.sp) != sum(n.mar) - n.chr) 
+  if(length(mar.sp) != sum(n.mar) - n.chr)
     stop("Length of mar.sp doesn't conform to n.mar.")
   if(length(qtl.chr) != length(qtl.mar) ||
      length(qtl.chr) != length(qtl.rf) ||
-     length(qtl.chr) != length(qtl.eff)) 
+     length(qtl.chr) != length(qtl.eff))
     stop("Lengths of qtl.chr, qtl.mar, qtl.rf, qtl.eff must all be the same.")
-  if(max(qtl.chr) > n.chr || min(qtl.chr) < 1) 
+  if(max(qtl.chr) > n.chr || min(qtl.chr) < 1)
     stop("Entries qtl.chr must be between 1 and n.chr, inclusive.")
 
   # thresholds
   if(!missing(thresh)) {
-    if(length(thresh)==1) 
+    if(length(thresh)==1)
       thresh <- rep(thresh,n.cim+1)
     else
       if(length(thresh) != n.cim+1)
@@ -74,7 +74,7 @@ function(n.sim=1000, cim.steps=c(3,5,7,9,11),bic.mult=c(2,2.5,3),
     else {
       if(n.ind == 100)
         thresh <- c(2.56,3.50,4.12,4.64,5.13,5.60)
-      if(n.ind == 250) 
+      if(n.ind == 250)
         thresh <- c(2.52,3.23,3.56,3.77,3.95,4.09)
       if(n.ind == 500)
         thresh <- c(2.50,3.15,3.38,3.51,3.60,3.67)
@@ -159,23 +159,23 @@ function(n.sim=1000, cim.steps=c(3,5,7,9,11),bic.mult=c(2,2.5,3),
     max.steps <- max(cim.steps)
   }
   # possible errors in arguments
-  if(length(drop)==1) 
+  if(length(drop)==1)
     drop <- rep(drop,n.cim+1)
   else
     if(length(drop) != n.cim+1)
       stop("Length of drop must be 1 or = 1+n.cim.")
-  if(length(mar.sp) != sum(n.mar) - n.chr) 
+  if(length(mar.sp) != sum(n.mar) - n.chr)
     stop("Length of mar.sp doesn't conform to n.mar.")
   if(length(qtl.chr) != length(qtl.mar) ||
      length(qtl.chr) != length(qtl.rf) ||
-     length(qtl.chr) != length(qtl.eff)) 
+     length(qtl.chr) != length(qtl.eff))
     stop("Lengths of qtl.chr, qtl.mar, qtl.rf, qtl.eff must all be the same.")
-  if(max(qtl.chr) > n.chr || min(qtl.chr) < 1) 
+  if(max(qtl.chr) > n.chr || min(qtl.chr) < 1)
     stop("Entries qtl.chr must be between 1 and n.chr, inclusive.")
 
   # thresholds
   if(!missing(thresh)) {
-    if(length(thresh)==1) 
+    if(length(thresh)==1)
       thresh <- rep(thresh,n.cim+1)
     else
       if(length(thresh) != n.cim+1)
@@ -192,7 +192,7 @@ function(n.sim=1000, cim.steps=c(3,5,7,9,11),bic.mult=c(2,2.5,3),
     else {
       if(n.ind == 100)
         thresh <- c(2.56,3.50,4.12,4.64,5.13,5.60)
-      if(n.ind == 250) 
+      if(n.ind == 250)
         thresh <- c(2.52,3.23,3.56,3.77,3.95,4.09)
       if(n.ind == 500)
         thresh <- c(2.50,3.15,3.38,3.51,3.60,3.67)
@@ -265,7 +265,7 @@ function(n.sim=1000, cim.steps=c(3,5,7,9,11),bic.mult=c(2,2.5,3),
 
 anal.all <-
 function(dat,cim.steps=7,max.steps=20)
-{  
+{
   gen <- dat$geno
   phe <- dat$pheno
   n.ind <- length(phe)
@@ -278,10 +278,10 @@ function(dat,cim.steps=7,max.steps=20)
     warning("max.steps must be at least as big as cim.steps.")
     max.steps <- cim.steps
   }
-    
+
   if(nrow(gen) != n.ind)
     stop("Number of rows in geno must equal the length of pheno.")
-  
+
   z <- .C("R_anal_all",
           as.integer(n.ind),
           as.integer(tot.mar),
@@ -310,7 +310,7 @@ function(dat, n.perm=1000, alpha=0.05)
   tot.mar <- ncol(gen)
   if(nrow(gen) != n.ind)
     stop("Number of rows in geno must equal the length of pheno.")
-  
+
   z <- .C("R_forw_perm",
           as.integer(n.ind),
           as.integer(tot.mar),
@@ -322,7 +322,7 @@ function(dat, n.perm=1000, alpha=0.05)
           n.chosen=as.integer(0),
           as.double(rep(0,n.ind*(tot.mar+3))),
           PACKAGE="qtlsim")
-  
+
   if(z$n.chosen==0) return(numeric(0))
   return(result=z$index[1:z$n.chosen])
 }
@@ -337,7 +337,7 @@ function(n.ind=100, n.mar=rep(11,9),mar.sp=rep(10,10*9),
   tot.mar <- sum(n.mar)
   if(length(mar.sp) != tot.mar-n.chr)
     stop("Length of mar.sp doesn't conform to n.mar.")
-  
+
   n.cim <- length(cim.steps)
   cim.steps <- rev(sort(cim.steps))
 
@@ -384,7 +384,7 @@ function(n.ind=100, n.mar=rep(11,9),mar.sp=rep(10,10*9),
 #  if(!z$n.qtl) return(NULL)
 #  rbind(chr=z$chr.id[1:z$n.qtl],mar=z$mar.id[1:z$n.qtl])
 #
-#}  
+#}
 
 
 
@@ -408,10 +408,10 @@ function(n.ind=100, n.mar=rep(11,9),mar.sp=rep(10,10*9),
 #          mar.id=as.integer(rep(0,length(index))),
 #          as.double(mult),
 #          PACKAGE="qtlsim")
-#          
+#
 #  if(!z$n.qtl) return(NULL)
 #  rbind(chr=z$chr.id[1:z$n.qtl],mar=z$mar.id[1:z$n.qtl])
-#}  
+#}
 
 
 anal.leaps <-
@@ -470,7 +470,7 @@ function(dat, method=c("forward","backward","forwback",
 
   if(bic0 < min(bic)) result <- list(numeric(0),bic0)
   else result <- list(id[out$which[o,-1]],min(bic))
-  
+
   names(result) <- c("id","bic")
   result
 }
@@ -510,16 +510,16 @@ function(dat,bic.mult=2.5,n.steps=1000,
           n.qtl.id.list=as.integer(rep(0,n.steps+1)),
           post.list=as.double(rep(0,n.steps+1)),
           PACKAGE="qtlsim")
-  
+
   if(z$n.qtl.id==0) id <- numeric(0)
   else id <- z$qtl.id[1:z$n.qtl.id]
   list(id=id,neg.log.post=z$neg.log.post,first=z$first.seen,
        all.n.qtl=z$n.qtl.id.list,all.post=z$post.list)
 }
 
-          
-    
-                
+
+
+
 sim.mcmc <-
 function(n.sim=1000,max.steps=28,bic.mult=2.5, n.steps=1000,
          n.ind=100, n.mar = rep(11,9), mar.sp = rep(10,10*9),

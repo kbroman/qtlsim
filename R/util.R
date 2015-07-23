@@ -39,7 +39,7 @@ function(object, n.chr=9, chr.len=100)
 }
 
 which.pos <-
-function(vect,cs)  
+function(vect,cs)
 {
   if(length(vect)==0) return(numeric(0))
   sapply(vect,function(a,b) {
@@ -69,7 +69,7 @@ function(infer,truth,within=1)
   c(z$cor,z$incor)
 }
 
-          
+
 
 which.correct <-
 function(results,
@@ -92,7 +92,7 @@ function(results,
 
 
 combine.sims <-
-function(...)   
+function(...)
 {
   a <- list(...)
   if(length(a) < 2)
@@ -101,15 +101,15 @@ function(...)
     stop("All arguments must be lists of the same length.")
 
   res <- a[[1]]
-  for(i in 2:length(a)) 
-    for(j in 1:length(res)) 
+  for(i in 2:length(a))
+    for(j in 1:length(res))
       res[[j]] <- c(res[[j]],a[[i]][[j]])
-      
+
   res
 }
 
 combine.mcmc <-
-function(...)   
+function(...)
 {
   a <- list(...)
   if(length(a) < 2)
@@ -148,7 +148,7 @@ function(x,...,ylim)
             col=colors,ylim=ylim,main=main[i],ylab=ylab[i])
       abline(h=seq(0,1,by=0.1),lty=2)
   }
-  
+
 }
 
 

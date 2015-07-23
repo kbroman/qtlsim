@@ -8,7 +8,7 @@
 #
 # Part of the R/qtlsim package
 #
-# simbc:       simulate backcross data 
+# simbc:       simulate backcross data
 #
 ######################################################################
 
@@ -21,15 +21,15 @@ function(n.ind=100, n.mar = rep(11,9), mar.sp = rep(10,10*9),
   rf <- 0.5*(1-exp(-mar.sp/50))
   qtl.rf <- 0.5*(1-exp(-qtl.dist/50))
   n.chr <- length(n.mar)
-  
+
   # possible errors in arguments
-  if(length(mar.sp) != sum(n.mar) - n.chr) 
+  if(length(mar.sp) != sum(n.mar) - n.chr)
     stop("Length of mar.sp doesn't conform to n.mar.")
   if(length(qtl.chr) != length(qtl.mar) ||
      length(qtl.chr) != length(qtl.rf) ||
-     length(qtl.chr) != length(qtl.eff)) 
+     length(qtl.chr) != length(qtl.eff))
     stop("Lengths of qtl.chr, qtl.mar, qtl.rf, qtl.eff must all be the same.")
-  if(max(qtl.chr) > n.chr || min(qtl.chr) < 1) 
+  if(max(qtl.chr) > n.chr || min(qtl.chr) < 1)
     stop("Entries qtl.chr must be between 1 and n.chr, inclusive.")
 
   # convert qtl.mar to cumulative numbers 0,1,2,...,sum(n.mar)-1

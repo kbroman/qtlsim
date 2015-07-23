@@ -1,5 +1,5 @@
 /**********************************************************************
- * 
+ *
  * analmulti.c: Programs to analyze QTL data from a backcross
  *              These functions either call multiple analysis
  *              methods or do big simulations
@@ -26,11 +26,11 @@
 #include "mcmc.h"
 
 /**********************************************************************
- * 
+ *
  * sim_null:  Simulate under the null hypothesis (no QTLs) and
  *            then call anal_anova and anal_zeng
  *
- * Input:  
+ * Input:
  *
  *   n_ind =         number of individuals
  *   n_chr =         number of chromosomes
@@ -44,12 +44,12 @@
  *   iwork =         workspace of integers [size tot_mar * (n_ind+1)]
  *   dwork =         workspace of doubles [size n_ind + (tot_mar+2)^2
  *                             + 2*tot_mar+1]
- *   
+ *
  **********************************************************************/
 
-void sim_null(int n_ind, int n_chr, int *n_mar, int tot_mar, 
-	      double *recfrac, int n_cim, int *cim_steps, 
-	      int n_sim, double *maxlod, int *iwork, double *dwork)
+void sim_null(int n_ind, int n_chr, int *n_mar, int tot_mar,
+          double *recfrac, int n_cim, int *cim_steps,
+          int n_sim, double *maxlod, int *iwork, double *dwork)
 {
   int i, j, k, r, err;
   double *phenotypes, *xpx, *lod, *rss;
@@ -77,15 +77,15 @@ void sim_null(int n_ind, int n_chr, int *n_mar, int tot_mar,
 
     /* calculate X'X matrix */
     calc_xpx(n_ind, tot_mar+2, genotypes, phenotypes, xpx);
-  
+
     /* perform ANOVA */
     anal_anova(n_ind, tot_mar, xpx, lod);
-    
+
     /* find maximum */
     maxlod[i] = lod[0];
-    for(j=1; j<tot_mar; j++) 
-      if(maxlod[i] < lod[j]) 
-	maxlod[i] = lod[j];
+    for(j=1; j<tot_mar; j++)
+      if(maxlod[i] < lod[j])
+    maxlod[i] = lod[j];
 
     /* perform forward selection */
     forward(tot_mar, xpx, cim_steps[0], index, rss);
@@ -93,29 +93,29 @@ void sim_null(int n_ind, int n_chr, int *n_mar, int tot_mar,
     for(j=0, r=n_sim; j<n_cim; j++, r += n_sim) {
       /* unsweep columns */
       if(j>0) sweep(xpx, tot_mar+2, index+cim_steps[j],
-		    cim_steps[j-1]-cim_steps[j], &err);
+            cim_steps[j-1]-cim_steps[j], &err);
 
       /* perform CIM */
       anal_cim(n_ind, tot_mar, xpx, lod, index, cim_steps[j], 1);
-      
+
       maxlod[i+r] = lod[0];
-      for(k=1; k<tot_mar; k++) 
-	if(maxlod[i+r] < lod[k])
-	  maxlod[i+r] = lod[k];
+      for(k=1; k<tot_mar; k++)
+    if(maxlod[i+r] < lod[k])
+      maxlod[i+r] = lod[k];
     }
-    
+
   }
 }
 
 
-void R_sim_null(int *n_ind, int *n_chr, int *n_mar, int *tot_mar, 
-		double *recfrac, int *n_cim, int *cim_steps, 
-		int *n_sim, double *maxlod, int *iwork, double *dwork)
+void R_sim_null(int *n_ind, int *n_chr, int *n_mar, int *tot_mar,
+        double *recfrac, int *n_cim, int *cim_steps,
+        int *n_sim, double *maxlod, int *iwork, double *dwork)
 {
   GetRNGstate();
 
-  sim_null(*n_ind, *n_chr, n_mar, *tot_mar, recfrac, *n_cim, 
-	   cim_steps, *n_sim, maxlod, iwork, dwork);
+  sim_null(*n_ind, *n_chr, n_mar, *tot_mar, recfrac, *n_cim,
+       cim_steps, *n_sim, maxlod, iwork, dwork);
 
 
   PutRNGstate();
@@ -123,10 +123,10 @@ void R_sim_null(int *n_ind, int *n_chr, int *n_mar, int *tot_mar,
 
 
 /**********************************************************************
- * 
+ *
  * anal_all:  Call anal_anova, anal_cim, and forward
  *
- * Input:  
+ * Input:
  *
  *   n_ind =         number of individuals
  *   tot_mar =       total number of markers
@@ -141,19 +141,19 @@ void R_sim_null(int *n_ind, int *n_chr, int *n_mar, int *tot_mar,
  *                   from forward selection
  *   rss =           vector of size max_steps to contain the RSS
  *                   from forward selection
- *   
+ *
  **********************************************************************/
 
 void anal_all(int n_ind, int tot_mar, int *genotypes,
-	      double *phenotypes, double *xpx, int n_steps,
-	      int max_steps, double *lod, double *lodcim, 
-	      int *index, double *rss)
+          double *phenotypes, double *xpx, int n_steps,
+          int max_steps, double *lod, double *lodcim,
+          int *index, double *rss)
 {
   int err;
 
   /* calculate X'X matrix */
   calc_xpx(n_ind, tot_mar+2, genotypes, phenotypes, xpx);
-  
+
   /* perform ANOVA */
   anal_anova(n_ind, tot_mar, xpx, lod);
 
@@ -169,19 +169,19 @@ void anal_all(int n_ind, int tot_mar, int *genotypes,
 }
 
 void R_anal_all(int *n_ind, int *tot_mar, int *genotypes,
-		double *phenotypes, double *xpx, int *n_steps,
-		int *max_steps, double *lod, double *lodcim, 
-		int *index, double *rss)
+        double *phenotypes, double *xpx, int *n_steps,
+        int *max_steps, double *lod, double *lodcim,
+        int *index, double *rss)
 {
   anal_all(*n_ind, *tot_mar, genotypes, phenotypes, xpx, *n_steps,
-	   *max_steps, lod, lodcim, index, rss);
+       *max_steps, lod, lodcim, index, rss);
 }
 
 
 /**********************************************************************
- * 
- * anal_multi: Function to simulate a backcross and analyze it by 
- *            ANOVA, CIM, and forward selection with BIC and permutation 
+ *
+ * anal_multi: Function to simulate a backcross and analyze it by
+ *            ANOVA, CIM, and forward selection with BIC and permutation
  *            tests.
  *
  * INPUT:
@@ -189,7 +189,7 @@ void R_anal_all(int *n_ind, int *tot_mar, int *genotypes,
  *     n_ind =         number of individuals
  *     n_chr =         number of chromosomes
  *     n_mar =         number of markers per chromosome
- *     recfrac =       recombination fractions between markers 
+ *     recfrac =       recombination fractions between markers
  *     n_sim =         number of simulations to perform
  *     n_qtl =
  *     qtl_chr =
@@ -198,7 +198,7 @@ void R_anal_all(int *n_ind, int *tot_mar, int *genotypes,
  *     effect =
  *     sigma =
  *     n_cim =         number of different cim_steps to use
- *     cim_steps =     number of steps of f.s. to perform before CIM 
+ *     cim_steps =     number of steps of f.s. to perform before CIM
  *                     (must be decreasing)
  *     n_bic =         number of different BIC multipliers to use
  *     bic_mult =      the BIC multipliers
@@ -216,12 +216,12 @@ void R_anal_all(int *n_ind, int *tot_mar, int *genotypes,
  **********************************************************************/
 
 void anal_multi(int n_ind, int n_chr, int *n_mar, double *recfrac,
-		int n_sim, int n_qtl, int *qtl_chr, int *mar_to_left, 
-		double *recfrac_to_left, double *effect, double sigma, 
-		int n_cim, int *cim_steps, int max_steps, int n_bic, 
-		double *bic_mult, double *thresh, double *drop, 
-		int n_perm, int alpha, int *n_qtl_id, int *chr_id, 
-		int *mar_id, int *iwork, double *dwork) 
+        int n_sim, int n_qtl, int *qtl_chr, int *mar_to_left,
+        double *recfrac_to_left, double *effect, double sigma,
+        int n_cim, int *cim_steps, int max_steps, int n_bic,
+        double *bic_mult, double *thresh, double *drop,
+        int n_perm, int alpha, int *n_qtl_id, int *chr_id,
+        int *mar_id, int *iwork, double *dwork)
 {
   int i, j, k, first_on_chr, s, tot_mar, size, sizesq, err;
   int *genotypes, *ijunk, *index;
@@ -245,63 +245,63 @@ void anal_multi(int n_ind, int n_chr, int *n_mar, double *recfrac,
   djunk = lod + tot_mar+1; /* size n_ind*(tot_mar+3) */
 
   /* begin simulations */
-  for(s=0; s<n_sim; s++) { 
+  for(s=0; s<n_sim; s++) {
     /* simulate marker data */
     simbc_mar(n_ind, n_chr, n_mar, recfrac, genotypes);
 
     /* simulate phenotypes */
     simbc_qtl(n_ind, n_chr, n_mar, recfrac, genotypes, phenotypes,
-	      n_qtl, qtl_chr, mar_to_left, recfrac_to_left, effect,
-	      sigma);
+          n_qtl, qtl_chr, mar_to_left, recfrac_to_left, effect,
+          sigma);
 
     /* calc X'X matrix */
     calc_xpx(n_ind, size, genotypes, phenotypes, xpx);
 
     /* perform ANOVA and identify QTLs */
     anal_anova(n_ind, tot_mar, xpx, lod);
-    identify_qtls(n_chr, n_mar, lod, thresh[0], drop[0], 
-		  n_qtl_id+s, chr_id+tot_mar*s, mar_id+tot_mar*s,
-		  ijunk, djunk);
+    identify_qtls(n_chr, n_mar, lod, thresh[0], drop[0],
+          n_qtl_id+s, chr_id+tot_mar*s, mar_id+tot_mar*s,
+          ijunk, djunk);
     /* perform forward selection (note: lod is really rss) */
     forward(tot_mar, xpx, max_steps, index, lod);
     /* minimize BIC */
-    for(i=0; i<n_bic; i++) 
+    for(i=0; i<n_bic; i++)
       identify_qtls_bic(n_chr, n_mar, n_ind, index, lod, max_steps,
-			n_qtl_id+s+n_sim*(1+n_cim+i),
-			chr_id+s*tot_mar+tot_mar*n_sim*(1+n_cim+i),
-			mar_id+s*tot_mar+tot_mar*n_sim*(1+n_cim+i),
-			bic_mult[i]);
+            n_qtl_id+s+n_sim*(1+n_cim+i),
+            chr_id+s*tot_mar+tot_mar*n_sim*(1+n_cim+i),
+            mar_id+s*tot_mar+tot_mar*n_sim*(1+n_cim+i),
+            bic_mult[i]);
     /* perform CIM */
     /* unsweep columns if necessary */
-    if(max_steps > cim_steps[0]) 
+    if(max_steps > cim_steps[0])
       sweep(xpx, size, index+cim_steps[0], max_steps-cim_steps[0], &err);
     for(i=0; i<n_cim; i++) {
-      if(i>0) 
-	sweep(xpx, size, index+cim_steps[i], cim_steps[i-1]-cim_steps[i],
-	      &err);
+      if(i>0)
+    sweep(xpx, size, index+cim_steps[i], cim_steps[i-1]-cim_steps[i],
+          &err);
       anal_cim(n_ind, tot_mar, xpx, lod, index, cim_steps[i], 1);
       identify_qtls(n_chr, n_mar, lod, thresh[i+1], drop[i+1],
-		    n_qtl_id+s+n_sim*(i+1),
-		    chr_id+s*tot_mar+tot_mar*n_sim*(1+i),
-		    mar_id+s*tot_mar+tot_mar*n_sim*(1+i),
-		    ijunk, djunk);
+            n_qtl_id+s+n_sim*(i+1),
+            chr_id+s*tot_mar+tot_mar*n_sim*(1+i),
+            mar_id+s*tot_mar+tot_mar*n_sim*(1+i),
+            ijunk, djunk);
     }
 
     /* do forward selection with permutation tests */
     k = s+n_sim*(1+n_cim+n_bic);
 
     forw_perm(n_ind, tot_mar, genotypes, phenotypes, index,
-	      n_perm, alpha, n_qtl_id+k, djunk);
+          n_perm, alpha, n_qtl_id+k, djunk);
 
     /* turn index into chr_id and mar_id */
     for(i=0; i < n_qtl_id[k]; i++) {
       for(j=0, first_on_chr=1; j<n_chr; first_on_chr += n_mar[j], j++) {
-	if(index[i] < first_on_chr + n_mar[j]) { 
-	  chr_id[i+s*tot_mar+tot_mar*n_sim*(1+n_cim+n_bic)] = j+1;
-	  mar_id[i+s*tot_mar+tot_mar*n_sim*(1+n_cim+n_bic)] = 
-	    index[i] - first_on_chr + 1; 
-	  break;
-	}
+    if(index[i] < first_on_chr + n_mar[j]) {
+      chr_id[i+s*tot_mar+tot_mar*n_sim*(1+n_cim+n_bic)] = j+1;
+      mar_id[i+s*tot_mar+tot_mar*n_sim*(1+n_cim+n_bic)] =
+        index[i] - first_on_chr + 1;
+      break;
+    }
       }
     }
 
@@ -310,18 +310,18 @@ void anal_multi(int n_ind, int n_chr, int *n_mar, double *recfrac,
 }
 
 void R_anal_multi(int *n_ind, int *n_chr, int *n_mar, double *recfrac,
-		  int *n_sim, int *n_qtl, int *qtl_chr, int *mar_to_left, 
-		  double *recfrac_to_left, double *effect, double *sigma, 
-		  int *n_cim, int *cim_steps, int *max_steps, int *n_bic, 
-		  double *bic_mult, double *thresh, double *drop, 
-		  int *n_perm, int *alpha, int *n_qtl_id, int *chr_id, 
-		  int *mar_id, int *iwork, double *dwork) 
+          int *n_sim, int *n_qtl, int *qtl_chr, int *mar_to_left,
+          double *recfrac_to_left, double *effect, double *sigma,
+          int *n_cim, int *cim_steps, int *max_steps, int *n_bic,
+          double *bic_mult, double *thresh, double *drop,
+          int *n_perm, int *alpha, int *n_qtl_id, int *chr_id,
+          int *mar_id, int *iwork, double *dwork)
 {
   GetRNGstate();
   anal_multi(*n_ind, *n_chr, n_mar, recfrac, *n_sim, *n_qtl, qtl_chr,
-	     mar_to_left, recfrac_to_left, effect, *sigma, *n_cim,
-	     cim_steps, *max_steps, *n_bic, bic_mult, thresh, drop, 
-	     *n_perm, *alpha, n_qtl_id, chr_id, mar_id, iwork, dwork);
+         mar_to_left, recfrac_to_left, effect, *sigma, *n_cim,
+         cim_steps, *max_steps, *n_bic, bic_mult, thresh, drop,
+         *n_perm, *alpha, n_qtl_id, chr_id, mar_id, iwork, dwork);
   PutRNGstate();
 }
 
@@ -329,9 +329,9 @@ void R_anal_multi(int *n_ind, int *n_chr, int *n_mar, double *recfrac,
 
 
 /**********************************************************************
- * 
- * anal_multi2: Function to simulate a backcross and analyze it by 
- *              ANOVA, CIM, forward selection with BIC and permutation 
+ *
+ * anal_multi2: Function to simulate a backcross and analyze it by
+ *              ANOVA, CIM, forward selection with BIC and permutation
  *              tests, and MCMC with BIC
  *
  * INPUT:
@@ -339,7 +339,7 @@ void R_anal_multi(int *n_ind, int *n_chr, int *n_mar, double *recfrac,
  *     n_ind =         number of individuals
  *     n_chr =         number of chromosomes
  *     n_mar =         number of markers per chromosome
- *     recfrac =       recombination fractions between markers 
+ *     recfrac =       recombination fractions between markers
  *     n_sim =         number of simulations to perform
  *     n_qtl =
  *     qtl_chr =
@@ -348,7 +348,7 @@ void R_anal_multi(int *n_ind, int *n_chr, int *n_mar, double *recfrac,
  *     effect =
  *     sigma =
  *     n_cim =         number of different cim_steps to use
- *     cim_steps =     number of steps of f.s. to perform before CIM 
+ *     cim_steps =     number of steps of f.s. to perform before CIM
  *                     (must be decreasing)
  *     n_bic =         number of different BIC multipliers to use
  *     bic_mult =      the BIC multipliers
@@ -371,13 +371,13 @@ void R_anal_multi(int *n_ind, int *n_chr, int *n_mar, double *recfrac,
  **********************************************************************/
 
 void anal_multi2(int n_ind, int n_chr, int *n_mar, double *recfrac,
-		 int n_sim, int n_qtl, int *qtl_chr, int *mar_to_left, 
-		 double *recfrac_to_left, double *effect, double sigma, 
-		 int n_cim, int *cim_steps, int max_steps, int n_bic, 
-		 double *bic_mult, double *thresh, double *drop, 
-		 int n_perm, int alpha, int n_mcmc, double mcmc_delta,
-		 int *n_qtl_id, int *chr_id, 
-		 int *mar_id, int *iwork, double *dwork) 
+         int n_sim, int n_qtl, int *qtl_chr, int *mar_to_left,
+         double *recfrac_to_left, double *effect, double sigma,
+         int n_cim, int *cim_steps, int max_steps, int n_bic,
+         double *bic_mult, double *thresh, double *drop,
+         int n_perm, int alpha, int n_mcmc, double mcmc_delta,
+         int *n_qtl_id, int *chr_id,
+         int *mar_id, int *iwork, double *dwork)
 {
   int i, j, k, first_on_chr, s, tot_mar, size, sizesq, err;
   int *genotypes, *ijunk, *index, *indicate, *ijunk2, ijunk3, *index2;
@@ -405,72 +405,72 @@ void anal_multi2(int n_ind, int n_chr, int *n_mar, double *recfrac,
   djunk2 = djunk + n_ind*(tot_mar+3); /* size n_mcmc + 1*/
 
   /* begin simulations */
-  for(s=0; s<n_sim; s++) { 
+  for(s=0; s<n_sim; s++) {
     /* simulate marker data */
     simbc_mar(n_ind, n_chr, n_mar, recfrac, genotypes);
 
     /* simulate phenotypes */
     simbc_qtl(n_ind, n_chr, n_mar, recfrac, genotypes, phenotypes,
-	      n_qtl, qtl_chr, mar_to_left, recfrac_to_left, effect,
-	      sigma);
+          n_qtl, qtl_chr, mar_to_left, recfrac_to_left, effect,
+          sigma);
 
     /* calc X'X matrix */
     calc_xpx(n_ind, size, genotypes, phenotypes, xpx);
 
     /* perform ANOVA and identify QTLs */
     anal_anova(n_ind, tot_mar, xpx, lod);
-    identify_qtls(n_chr, n_mar, lod, thresh[0], drop[0], 
-		  n_qtl_id+s, chr_id+tot_mar*s, mar_id+tot_mar*s,
-		  ijunk, djunk);
+    identify_qtls(n_chr, n_mar, lod, thresh[0], drop[0],
+          n_qtl_id+s, chr_id+tot_mar*s, mar_id+tot_mar*s,
+          ijunk, djunk);
     /* perform forward selection (note: lod is really rss) */
     forward(tot_mar, xpx, max_steps, index, lod);
     /* minimize BIC */
-    for(i=0; i<n_bic; i++) 
+    for(i=0; i<n_bic; i++)
       identify_qtls_bic(n_chr, n_mar, n_ind, index, lod, max_steps,
-			n_qtl_id+s+n_sim*(1+n_cim+i),
-			chr_id+s*tot_mar+tot_mar*n_sim*(1+n_cim+i),
-			mar_id+s*tot_mar+tot_mar*n_sim*(1+n_cim+i),
-			bic_mult[i]);
+            n_qtl_id+s+n_sim*(1+n_cim+i),
+            chr_id+s*tot_mar+tot_mar*n_sim*(1+n_cim+i),
+            mar_id+s*tot_mar+tot_mar*n_sim*(1+n_cim+i),
+            bic_mult[i]);
 
     /* save model with bic_mult[0] as starting point for MCMC */
     for(i=0; i<tot_mar+1; i++) indicate[i] = 0;
-    /* I comment out the following, to start with the null model 
+    /* I comment out the following, to start with the null model
     indicate[0] = n_qtl_id[s+n_sim*(1+n_cim)];
     for(i=0; i<n_qtl_id[s+n_sim*(1+n_cim)]; i++)
       indicate[index[i]] = 1; */
-				
+
 
     /* perform CIM */
     /* unsweep columns if necessary */
     if(max_steps > cim_steps[0])
       sweep(xpx, size, index+cim_steps[0], max_steps-cim_steps[0], &err);
     for(i=0; i<n_cim; i++) {
-      if(i>0) 
-	sweep(xpx, size, index+cim_steps[i], cim_steps[i-1]-cim_steps[i],
-	      &err);
+      if(i>0)
+    sweep(xpx, size, index+cim_steps[i], cim_steps[i-1]-cim_steps[i],
+          &err);
       anal_cim(n_ind, tot_mar, xpx, lod, index, cim_steps[i], 1);
       identify_qtls(n_chr, n_mar, lod, thresh[i+1], drop[i+1],
-		    n_qtl_id+s+n_sim*(i+1),
-		    chr_id+s*tot_mar+tot_mar*n_sim*(1+i),
-		    mar_id+s*tot_mar+tot_mar*n_sim*(1+i),
-		    ijunk, djunk);
+            n_qtl_id+s+n_sim*(i+1),
+            chr_id+s*tot_mar+tot_mar*n_sim*(1+i),
+            mar_id+s*tot_mar+tot_mar*n_sim*(1+i),
+            ijunk, djunk);
     }
 
     /* do forward selection with permutation tests */
     k = s+n_sim*(1+n_cim+n_bic);
 
     forw_perm(n_ind, tot_mar, genotypes, phenotypes, index,
-	      n_perm, alpha, n_qtl_id+k, djunk);
+          n_perm, alpha, n_qtl_id+k, djunk);
 
     /* turn index into chr_id and mar_id */
     for(i=0; i < n_qtl_id[k]; i++) {
       for(j=0, first_on_chr=1; j<n_chr; first_on_chr += n_mar[j], j++) {
-	if(index[i] < first_on_chr + n_mar[j]) { 
-	  chr_id[i+s*tot_mar+tot_mar*n_sim*(1+n_cim+n_bic)] = j+1;
-	  mar_id[i+s*tot_mar+tot_mar*n_sim*(1+n_cim+n_bic)] = 
-	    index[i] - first_on_chr + 1; 
-	  break;
-	}
+    if(index[i] < first_on_chr + n_mar[j]) {
+      chr_id[i+s*tot_mar+tot_mar*n_sim*(1+n_cim+n_bic)] = j+1;
+      mar_id[i+s*tot_mar+tot_mar*n_sim*(1+n_cim+n_bic)] =
+        index[i] - first_on_chr + 1;
+      break;
+    }
       }
     }
 
@@ -478,42 +478,42 @@ void anal_multi2(int n_ind, int n_chr, int *n_mar, double *recfrac,
     k = s+n_sim*(1+n_cim+n_bic+1);
 
     mcmc_ms(n_ind, tot_mar, genotypes, phenotypes, xpx,
-	    n_mcmc, n_qtl_id + k, index,
-	    &djunk3, &ijunk3, index2,
-	    indicate, mcmc_delta, ijunk2, djunk2);
-	    
+        n_mcmc, n_qtl_id + k, index,
+        &djunk3, &ijunk3, index2,
+        indicate, mcmc_delta, ijunk2, djunk2);
+
     /* turn index into chr_id and mar_id */
     for(i=0; i < n_qtl_id[k]; i++) {
       for(j=0, first_on_chr=1; j<n_chr; first_on_chr += n_mar[j], j++) {
-	if(index[i] < first_on_chr + n_mar[j]) { 
-	  chr_id[i+s*tot_mar+tot_mar*n_sim*(1+n_cim+n_bic+1)] = j+1;
-	  mar_id[i+s*tot_mar+tot_mar*n_sim*(1+n_cim+n_bic+1)] = 
-	    index[i] - first_on_chr + 1; 
-	  break;
-	}
+    if(index[i] < first_on_chr + n_mar[j]) {
+      chr_id[i+s*tot_mar+tot_mar*n_sim*(1+n_cim+n_bic+1)] = j+1;
+      mar_id[i+s*tot_mar+tot_mar*n_sim*(1+n_cim+n_bic+1)] =
+        index[i] - first_on_chr + 1;
+      break;
+    }
       }
     }
-	    
+
 
   } /* end of simulations */
 
 }
 
 void R_anal_multi2(int *n_ind, int *n_chr, int *n_mar, double *recfrac,
-		   int *n_sim, int *n_qtl, int *qtl_chr, int *mar_to_left, 
-		   double *recfrac_to_left, double *effect, double *sigma, 
-		   int *n_cim, int *cim_steps, int *max_steps, int *n_bic, 
-		   double *bic_mult, double *thresh, double *drop, 
-		   int *n_perm, int *alpha, int *n_mcmc, 
-		   double *mcmc_delta, int *n_qtl_id, int *chr_id, 
-		   int *mar_id, int *iwork, double *dwork) 
+           int *n_sim, int *n_qtl, int *qtl_chr, int *mar_to_left,
+           double *recfrac_to_left, double *effect, double *sigma,
+           int *n_cim, int *cim_steps, int *max_steps, int *n_bic,
+           double *bic_mult, double *thresh, double *drop,
+           int *n_perm, int *alpha, int *n_mcmc,
+           double *mcmc_delta, int *n_qtl_id, int *chr_id,
+           int *mar_id, int *iwork, double *dwork)
 {
   GetRNGstate();
   anal_multi2(*n_ind, *n_chr, n_mar, recfrac, *n_sim, *n_qtl, qtl_chr,
-	      mar_to_left, recfrac_to_left, effect, *sigma, *n_cim,
-	      cim_steps, *max_steps, *n_bic, bic_mult, thresh, drop, 
-	      *n_perm, *alpha, *n_mcmc, *mcmc_delta, 
-	      n_qtl_id, chr_id, mar_id, iwork, dwork);
+          mar_to_left, recfrac_to_left, effect, *sigma, *n_cim,
+          cim_steps, *max_steps, *n_bic, bic_mult, thresh, drop,
+          *n_perm, *alpha, *n_mcmc, *mcmc_delta,
+          n_qtl_id, chr_id, mar_id, iwork, dwork);
   PutRNGstate();
 }
 

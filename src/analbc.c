@@ -1,11 +1,11 @@
 /**********************************************************************
- * 
+ *
  * analbc.c: Programs to analyze QTL data from a backcross
  *
- *   calc_xpx, anal_anova, anal_cim, forward, 
- *   R_calc_xpx, 
+ *   calc_xpx, anal_anova, anal_cim, forward,
+ *   R_calc_xpx,
  *   identify_qtls, piksrt, identify_qtls_bic,
- *   R_identify_qtls, R_identify_qtls_bic,     
+ *   R_identify_qtls, R_identify_qtls_bic,
  *   which_correct, R_which_correct
  *
  * Karl Broman, 7/13/01 [originally 5/21/96, 5/27/96, 5/30/96]
@@ -23,7 +23,7 @@
 #include "analbc.h"
 
 /**********************************************************************
- * 
+ *
  * calc_xpx
  *
  *   Calculates (x y)' (x y) given genotype phenotype data.
@@ -31,12 +31,12 @@
  *   column already "swept"
  *
  * input:
- * 
- *   n_progeny 
+ *
+ *   n_progeny
  *
  *   size       = tot_mar + 2
  *
- *   genotypes 
+ *   genotypes
  *
  *   phenotypes
  *
@@ -47,13 +47,13 @@
 
 /*
 void R_calc_xpx(int *n_progeny, int *size, int *genotypes,
-		double *phenotypes, double *xpx)
+        double *phenotypes, double *xpx)
 {
   calc_xpx(*n_progeny, *size, genotypes, phenotypes, xpx);
-} 
+}
 */
 
-void calc_xpx(int n_progeny, int size, int *genotypes, 
+void calc_xpx(int n_progeny, int size, int *genotypes,
               double *phenotypes, double *xpx)
 {
   int i, j, k, p, q, r, sizesq, sizem1;
@@ -64,7 +64,7 @@ void calc_xpx(int n_progeny, int size, int *genotypes,
 
   /* place zeros in matrix */
   for(i=0; i<sizesq; i++) xpx[i] = 0.0;
-      
+
   /* first column */
   xpx[0] = -1.0/(double)n_progeny;
   for(i=1,p=0; i<sizem1; i++, p+= n_progeny) {
@@ -72,7 +72,7 @@ void calc_xpx(int n_progeny, int size, int *genotypes,
       xpx[i] += (double)genotypes[j+p];
     xpx[i] /= (double)n_progeny;
   }
-  for(j=0; j<n_progeny; j++) 
+  for(j=0; j<n_progeny; j++)
     xpx[sizem1] += phenotypes[j];
   xpx[sizem1] /= (double)n_progeny;
 
@@ -80,8 +80,8 @@ void calc_xpx(int n_progeny, int size, int *genotypes,
     for(i=1, p=0, r=size; i<sizem1; i++, p+=n_progeny, r+=size) {
       a = ((double)genotypes[j+p]-xpx[i]);
       xpx[i+r] += (a*a);
-      for(k=(i+1),q=p+n_progeny; k<sizem1; k++, q+=n_progeny) 
-	xpx[k+r] += (a*((double)genotypes[j+q]-xpx[k]));
+      for(k=(i+1),q=p+n_progeny; k<sizem1; k++, q+=n_progeny)
+    xpx[k+r] += (a*((double)genotypes[j+q]-xpx[k]));
       xpx[sizem1+r] += (a*(phenotypes[j]-xpx[sizem1]));
     }
     a = (phenotypes[j]-xpx[sizem1]);
@@ -89,14 +89,14 @@ void calc_xpx(int n_progeny, int size, int *genotypes,
   }
 
   /* fill out upper triangle by symmetry */
-  for(i=0, p=0; i<sizem1; i++, p+=size) 
-    for(j=i+1, q= p+size; j<size; j++, q+=size) 
+  for(i=0, p=0; i<sizem1; i++, p+=size)
+    for(j=i+1, q= p+size; j<size; j++, q+=size)
       xpx[i + q] = xpx[j + p];
 }
 
 
 /**********************************************************************
- * 
+ *
  * anal_anova
  *
  *   QTL analysis of backcross data by a lander/botstein type method,
@@ -106,7 +106,7 @@ void calc_xpx(int n_progeny, int size, int *genotypes,
  * input:
  *
  *   n_progeny      = number of progeny
- *  
+ *
  *   tot_mar        = total number of markers
  *
  *   xpx            = empty square matrix of size (tot_mar + 2)^2
@@ -121,42 +121,42 @@ void anal_anova(int n_progeny, int tot_mar, double *xpx, double *lod)
 {
   int i, j;
   int size, sizesqm1, err;
-  
+
   size = tot_mar + 2;
   sizesqm1 = size*size - 1;
-  
+
   /* log RSS under null model */
   j = 1;
   lod[0] = log(xpx[sizesqm1]);
   for(i=1; i< size - 2; i++) lod[i] = lod[0];
-    
+
   /* sweep each of the other marker columns, one at a time  */
   for(i=1; i < size - 1; i++) {
     sweep(xpx, size, &i, j, &err);
     lod[i-1] -= log(xpx[sizesqm1]);
     sweep(xpx, size, &i, j, &err);
   }
-  
+
   /* get lod */
   for(i=0; i<size-2; i++)
     lod[i] *= ((double)n_progeny/(2.0*log(10.0)));
 }
-    
+
 /**********************************************************************
- * 
+ *
  * anal_cim
  *
  *   QTL analysis of backcross data by a Cim-type method,
  *   assuming QTLs are located at marker loci, and using forward
- *   selection to choose markers for use as covariates (choosing 
- *   "n_steps" markers) 
+ *   selection to choose markers for use as covariates (choosing
+ *   "n_steps" markers)
  *
  * input:
  *
  *   n_progeny      = number of progeny
- *  
+ *
  *   tot_mar        = total number of markers
- * 
+ *
  *   xpx            = empty square matrix of size (tot_mar + 2)
  *                    used as workspace
  *
@@ -170,21 +170,21 @@ void anal_anova(int n_progeny, int tot_mar, double *xpx, double *lod)
  *
  **********************************************************************/
 
-void anal_cim(int n_progeny, int tot_mar, double *xpx, double *lod, 
-	       int *index, int n_steps, int skip_forw)
+void anal_cim(int n_progeny, int tot_mar, double *xpx, double *lod,
+           int *index, int n_steps, int skip_forw)
 {
   int i;
   int size, sizesqm1, err;
-  
+
   size = tot_mar + 2;
   sizesqm1 = size*size - 1;
-  
+
   /* forward selection up to size n_steps */
-  if(!skip_forw) 
+  if(!skip_forw)
     forward(tot_mar, xpx, n_steps, index, lod);
 
-  /* the first column + columns indicated in the first "n_steps" 
-     positions of "index" (those chosen by forward selection) are 
+  /* the first column + columns indicated in the first "n_steps"
+     positions of "index" (those chosen by forward selection) are
      swept.  The rest of the positions in "index" have not been chosen */
 
   /* we now subtract and add each of the columns in the selected set,
@@ -208,11 +208,11 @@ void anal_cim(int n_progeny, int tot_mar, double *xpx, double *lod,
 
   /* get lod */
   for(i=0; i<size-2; i++)
-    lod[i] *= ((double)n_progeny/(2.0*log(10.0))); 
+    lod[i] *= ((double)n_progeny/(2.0*log(10.0)));
 }
-    
+
 /**********************************************************************
- * 
+ *
  * forward:  performs forward selection
  *
  * input:
@@ -243,8 +243,8 @@ void forward(int tot_mar, double *xpx, int max_steps,
   size = tot_mar + 2;
   sizesqm1 = size * size - 1;
 
-  /* sweep first column 
-  i=0; 
+  /* sweep first column
+  i=0;
   sweep(xpx, size, &i, 1, &err); */
 
   /* rss for model with no markers */
@@ -253,7 +253,7 @@ void forward(int tot_mar, double *xpx, int max_steps,
   /* set up index */
   for(i=0; i<size - 2; i++) index[i]=i+1;
 
-  for(i=0; i< max_steps; i++) {  
+  for(i=0; i< max_steps; i++) {
     rss[i+1] = xpx[sizesqm1];
     for(j=i; j < size-2; j++) {
       sweep(xpx, size, index+j, 1, &err);
@@ -261,7 +261,7 @@ void forward(int tot_mar, double *xpx, int max_steps,
       sweep(xpx, size, index+j, 1, &err);
 
       if(a < rss[i+1]) {
-        k = index[j]; 
+        k = index[j];
         index[j] = index[i];
         index[i] = k;
         rss[i+1] = a;
@@ -276,7 +276,7 @@ void forward(int tot_mar, double *xpx, int max_steps,
 
 
 /**********************************************************************
- * 
+ *
  * identify_qtls:  take in lod curve, threshold, and min. drop between
  *                 peaks and output the chromosome and marker numbers
  *                 for the chosen QTLs
@@ -284,7 +284,7 @@ void forward(int tot_mar, double *xpx, int max_steps,
  * input:
  *
  *    n_chr, n_mar               = info about genome size
- * 
+ *
  *    lod                        = lod curve
  *
  *    threshold                  = threshold to use
@@ -310,7 +310,7 @@ void forward(int tot_mar, double *xpx, int max_steps,
 
 void identify_qtls(int n_chr, int *n_mar, double *lod,
                    double threshold, double drop, int *n_qtl_id,
-                   int *chr_id, int *mar_id, int *lwork, 
+                   int *chr_id, int *mar_id, int *lwork,
                    double *dwork)
 {
   int i, j, k, n_found, flag, flag1;
@@ -322,8 +322,8 @@ void identify_qtls(int n_chr, int *n_mar, double *lod,
     flag1=0;
     for(j=0, cur=first_on_chr; j < n_mar[i]; j++, cur++) {
       if(lod[cur] > threshold) {
-	flag1=1;
-	break;
+    flag1=1;
+    break;
       }
     }
 
@@ -331,83 +331,83 @@ void identify_qtls(int n_chr, int *n_mar, double *lod,
       n_found = 0;
       /* sort lods and indices */
       for(j=0, cur=first_on_chr; j< n_mar[i]; j++, cur++) {
-	lwork[j] = j+1;
-	dwork[j] = lod[cur];
+    lwork[j] = j+1;
+    dwork[j] = lod[cur];
       }
       piksrt(n_mar[i], dwork, lwork);
-    
-      for(j=0, cur=first_on_chr; j< n_mar[i] && dwork[j] > threshold; 
-	  j++, cur++) {
-	if(!n_found) {
-	  /* first QTL identified on this chromosome */
-	  chr_id[*n_qtl_id] = i+1;
-	  mar_id[*n_qtl_id] = lwork[j];
-	  (*n_qtl_id)++;
-	  n_found++;
-	}
-	else {
-	  closest = mar_id[*n_qtl_id - n_found];
-	  if(n_found > 1) {
-	    /* find closest identified QTL */
-	    for(k= *n_qtl_id - n_found + 1; k < *n_qtl_id; k++) 
-	      if(abs(closest - lwork[j]) > abs(mar_id[k] - lwork[j]))
-		closest = mar_id[k];
-	  }
-	  flag = 0;
-	  /* closest identified comes before the current one */
-	  if(closest < lwork[j]) {
-	    for(k=closest+1; k<lwork[j]; k++) 
-	      if(lod[first_on_chr + k-1] < dwork[j] - drop) {
-		flag = 1;
-		break;
-	      }
-	  }
-	  else { 
-	    for(k=lwork[j]+1; k<closest; k++) 
-	      if(lod[first_on_chr + k-1] < dwork[j] - drop) {
-		flag = 1;
-		break;
-	      }
-	  }
-	  if(flag) {
-	    chr_id[*n_qtl_id] = i+1;
-	    mar_id[*n_qtl_id] = lwork[j];
-	    (*n_qtl_id)++;
-	    n_found++;
-	  }
-	}
-      } 
+
+      for(j=0, cur=first_on_chr; j< n_mar[i] && dwork[j] > threshold;
+      j++, cur++) {
+    if(!n_found) {
+      /* first QTL identified on this chromosome */
+      chr_id[*n_qtl_id] = i+1;
+      mar_id[*n_qtl_id] = lwork[j];
+      (*n_qtl_id)++;
+      n_found++;
+    }
+    else {
+      closest = mar_id[*n_qtl_id - n_found];
+      if(n_found > 1) {
+        /* find closest identified QTL */
+        for(k= *n_qtl_id - n_found + 1; k < *n_qtl_id; k++)
+          if(abs(closest - lwork[j]) > abs(mar_id[k] - lwork[j]))
+        closest = mar_id[k];
+      }
+      flag = 0;
+      /* closest identified comes before the current one */
+      if(closest < lwork[j]) {
+        for(k=closest+1; k<lwork[j]; k++)
+          if(lod[first_on_chr + k-1] < dwork[j] - drop) {
+        flag = 1;
+        break;
+          }
+      }
+      else {
+        for(k=lwork[j]+1; k<closest; k++)
+          if(lod[first_on_chr + k-1] < dwork[j] - drop) {
+        flag = 1;
+        break;
+          }
+      }
+      if(flag) {
+        chr_id[*n_qtl_id] = i+1;
+        mar_id[*n_qtl_id] = lwork[j];
+        (*n_qtl_id)++;
+        n_found++;
+      }
+    }
+      }
     } /* at least one identified QTL on chromosome */
   } /* loop over chromosomes */
 }
 
 /*
 void R_identify_qtls(int *n_chr, int *n_mar, double *lod,
-		     double *threshold, double *drop, int *n_qtl_id,
-		     int *chr_id, int *mar_id, int *lwork, 
-		     double *dwork)
+             double *threshold, double *drop, int *n_qtl_id,
+             int *chr_id, int *mar_id, int *lwork,
+             double *dwork)
 {
   identify_qtls(*n_chr, n_mar, lod, *threshold, *drop, n_qtl_id,
-		chr_id, mar_id, lwork, dwork);
+        chr_id, mar_id, lwork, dwork);
 }
 */
 
 /**********************************************************************
- * 
+ *
  * piksrt
  *
  * This function was take from Numerical Recipes in C (Sec 8.1:
- * straight insertion and Shell's method).  It should suffice for my 
+ * straight insertion and Shell's method).  It should suffice for my
  * very simple sorting needs.
  *
  * Input:
  *
  *     n   = length of vector to sort
- *   
+ *
  *   arr   = pointer to array to be sorted into ascending order;
  *           on output, it contains the sorted array
- * 
- *   larr  = pointer to array to be sorted aint side arr 
+ *
+ *   larr  = pointer to array to be sorted aint side arr
  *
  **********************************************************************/
 
@@ -415,7 +415,7 @@ void piksrt(int n, double *arr, int *larr)
 {
   int i,j, b;
   double a;
-  
+
   for(j=1; j<n; j++) {        /* pick out each element in turn */
     a=arr[j];
     b = larr[j];
@@ -425,7 +425,7 @@ void piksrt(int n, double *arr, int *larr)
       larr[i+1] = larr[i];
       i--;
     }
-    arr[i+1]=a;                /* insert it */ 
+    arr[i+1]=a;                /* insert it */
     larr[i+1]=b;
   }
 }
@@ -433,15 +433,15 @@ void piksrt(int n, double *arr, int *larr)
 
 
 /**********************************************************************
- * 
+ *
  * identify_qtls_bic:  take the results of forward or backward selection
- *                     and use BIC to choose a model and pick out the 
+ *                     and use BIC to choose a model and pick out the
  *                     location of QTLs
  *
  * input:
  *
  *    n_chr, n_mar               = info about genome size
- * 
+ *
  *    n_progeny
  *
  *    index                      = index giving order of markers to
@@ -449,7 +449,7 @@ void piksrt(int n, double *arr, int *larr)
  *
  *    rss                        = corresponding residual sum of squares
  *                                 for the set of markers
- * 
+ *
  *    n_models                   = number of models generated (used when
  *                                 forward selection is not carried out
  *                                 completely)
@@ -469,7 +469,7 @@ void piksrt(int n, double *arr, int *larr)
  **********************************************************************/
 
 void identify_qtls_bic(int n_chr, int *n_mar, int n_progeny,
-                       int *index, double *rss, int n_models, 
+                       int *index, double *rss, int n_models,
                        int *n_qtl_id, int *chr_id, int *mar_id,
                        double multiplier)
 {
@@ -477,7 +477,7 @@ void identify_qtls_bic(int n_chr, int *n_mar, int n_progeny,
   double a, b;
 
   /* BIC for null model */
-  a = log(rss[0]); 
+  a = log(rss[0]);
   *n_qtl_id = 0;
 
   /* calculate BIC for the rest of the models,
@@ -485,22 +485,22 @@ void identify_qtls_bic(int n_chr, int *n_mar, int n_progeny,
   for(i=1; i<=n_models; i++) {
     b = log(rss[i]) + multiplier*(double)i*log((double)n_progeny)/
       (double)n_progeny;
-    
+
     if(b < a) {
       *n_qtl_id = i;
       a = b;
     }
   }
-  
+
   /* fill up chr_id and mar_id with chosen QTLs */
   if(*n_qtl_id) {
     for(i=0; i < *n_qtl_id; i++) {
       for(j=0, first_on_chr=1; j<n_chr; first_on_chr += n_mar[j], j++) {
-	if(index[i] < first_on_chr + n_mar[j]) { 
-	  chr_id[i] = j+1;
-	  mar_id[i] = index[i] - first_on_chr + 1; 
-	  break;
-	}
+    if(index[i] < first_on_chr + n_mar[j]) {
+      chr_id[i] = j+1;
+      mar_id[i] = index[i] - first_on_chr + 1;
+      break;
+    }
       }
     }
   }
@@ -510,19 +510,19 @@ void identify_qtls_bic(int n_chr, int *n_mar, int n_progeny,
 
 /*
 void R_identify_qtls_bic(int *n_chr, int *n_mar, int *n_progeny,
-			 int *index, double *rss, int *n_models, 
-			 int *n_qtl_id, int *chr_id, int *mar_id,
-			 double *multiplier)
+             int *index, double *rss, int *n_models,
+             int *n_qtl_id, int *chr_id, int *mar_id,
+             double *multiplier)
 {
-     identify_qtls_bic(*n_chr, n_mar, *n_progeny, index, rss, 
-		       *n_models, n_qtl_id, chr_id, mar_id,
-		       *multiplier);
+     identify_qtls_bic(*n_chr, n_mar, *n_progeny, index, rss,
+               *n_models, n_qtl_id, chr_id, mar_id,
+               *multiplier);
 }
 */
 
 
 /**********************************************************************
- * 
+ *
  * which_correct: figure out which QTLs were correctly identified
  *                and how many were incorrectly identified
  *
@@ -542,11 +542,11 @@ void R_identify_qtls_bic(int *n_chr, int *n_mar, int *n_progeny,
  **********************************************************************/
 
 void which_correct(int n_infer, int *chr_infer, int *mar_infer,
-		   int n_true, int *chr_true, int *mar_true,
-		   int within, int *correct, int *n_incorrect)
+           int n_true, int *chr_true, int *mar_true,
+           int within, int *correct, int *n_incorrect)
 {
   int i, j, flag;
-  
+
   for(i=0; i<n_true;  i++) correct[i] = 0;
   n_incorrect[0] = n_incorrect[1] = 0;
   for(i=0; i<n_infer; i++) {
@@ -554,19 +554,19 @@ void which_correct(int n_infer, int *chr_infer, int *mar_infer,
     for(j=0; j<n_true; j++) {
       /* correctly identified? */
       if(correct[j] != 1 && chr_infer[i] == chr_true[j] &&
-	 mar_infer[i] >= mar_true[j] - within &&
-	 mar_infer[i] <= mar_true[j] + within) {
-	flag = 1;
-	correct[j] = 1;
-	break;
+     mar_infer[i] >= mar_true[j] - within &&
+     mar_infer[i] <= mar_true[j] + within) {
+    flag = 1;
+    correct[j] = 1;
+    break;
       }
     }
     if(flag==0) {
       for(j=0; j<n_true; j++) {
-	if(chr_infer[i]==chr_true[j]) { 
-	  flag = 1;
-	  break;
-	}
+    if(chr_infer[i]==chr_true[j]) {
+      flag = 1;
+      break;
+    }
       }
       if(flag==1) (n_incorrect[0])++;
       else (n_incorrect[1])++;
@@ -576,11 +576,11 @@ void which_correct(int n_infer, int *chr_infer, int *mar_infer,
 }
 
 void R_which_correct(int *n_infer, int *chr_infer, int *mar_infer,
-		     int *n_true, int *chr_true, int *mar_true,
-		     int *within, int *correct, int *n_incorrect)
-{     
-  which_correct(*n_infer, chr_infer, mar_infer, *n_true, 
-		chr_true, mar_true, *within, correct, n_incorrect);
+             int *n_true, int *chr_true, int *mar_true,
+             int *within, int *correct, int *n_incorrect)
+{
+  which_correct(*n_infer, chr_infer, mar_infer, *n_true,
+        chr_true, mar_true, *within, correct, n_incorrect);
 }
 
 /* end of analbc.c */

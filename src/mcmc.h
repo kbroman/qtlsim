@@ -1,6 +1,6 @@
 /**********************************************************************
  *
- * mcmc_ms.h: MCMC program to do model selection in order to analyze QTL 
+ * mcmc_ms.h: MCMC program to do model selection in order to analyze QTL
  *            data from a backcross
  *
  *   mcmc_ms
@@ -10,17 +10,17 @@
  **********************************************************************/
 
 void mcmc_ms(int n_ind, int tot_mar,
-             int *genotypes, double *phenotypes, double *xpx, 
+             int *genotypes, double *phenotypes, double *xpx,
              int n_steps, int *n_qtl_id, int *qtl_id,
-             double *neg_log_post, int *first_seen, int *index, 
-	     int *indicate, double delta, int *n_qtl_id_list,
-	     double *post_list);
+             double *neg_log_post, int *first_seen, int *index,
+         int *indicate, double delta, int *n_qtl_id_list,
+         double *post_list);
 
 void R_mcmc_ms(int *n_ind, int *tot_mar,
-	       int *genotypes, double *phenotypes, double *xpx, 
-	       int *n_steps, int *n_qtl_id, int *qtl_id,
-	       double *neg_log_post, int *first_seen, int *index, 
-	       int *indicate, double *delta, int *n_qtl_id_list,
-	       double *post_list);
+           int *genotypes, double *phenotypes, double *xpx,
+           int *n_steps, int *n_qtl_id, int *qtl_id,
+           double *neg_log_post, int *first_seen, int *index,
+           int *indicate, double *delta, int *n_qtl_id_list,
+           double *post_list);
 
 /* end of mcmc.h */
