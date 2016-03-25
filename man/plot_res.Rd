@@ -7,13 +7,13 @@
   \code{\link[qtlsim]{anal.multi}} or \code{\link[qtlsim]{sim.mcmc}}.}
 
 \usage{
-plot_res(x, \dots, ylim)
+plot_res(x, \dots, ylim=NULL)
 }
 
 \arguments{
   \item{x}{Output of \code{\link[qtlsim]{which.correct}}.}
   \item{\dots}{Arguments to be passed to \code{\link[graphics]{par}}.}
-  \item{ylim}{Y-axis limits.  If missing, (0,1) is used.}
+  \item{ylim}{Y-axis limits.  If NULL, (0,1) is used.}
 }
 
 \value{

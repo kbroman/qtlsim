@@ -127,11 +127,11 @@ function(...)
 }
 
 plot_res <-
-function(x,...,ylim)
+function(x,...,ylim=NULL)
 {
   tab <- sapply(x,apply,2,mean)
   par(...)
-  if(missing(ylim) || is.null(ylim)) ylim <- c(0,1)
+  if(is.null(ylim)) ylim <- c(0,1)
   if(ncol(tab) == 5) colors <- c("white","gray80","white","gray80","gray50")
   else colors <- c("white",rep("gray80",5),rep("gray50",3),"white")
   if(nrow(tab)==9) {

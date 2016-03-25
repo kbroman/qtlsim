@@ -23,7 +23,7 @@
 
 anal.multi <-
 function(n.sim=1000, cim.steps=c(3,5,7,9,11),bic.mult=c(2,2.5,3),
-         max.steps=13, n.perm=1000, alpha=0.05, thresh, drop=1.5,
+         max.steps=13, n.perm=1000, alpha=0.05, thresh=NULL, drop=1.5,
          n.ind=100, n.mar = rep(11,9), mar.sp = rep(10,10*9),
          qtl.chr = c(1,1,2,2,3,4,5), qtl.mar = c(4,8,4,8,6,4,1),
          qtl.dist = rep(0,7), qtl.eff = c(1,1,1,-1,1,1,1)/2,
@@ -56,7 +56,7 @@ function(n.sim=1000, cim.steps=c(3,5,7,9,11),bic.mult=c(2,2.5,3),
     stop("Entries qtl.chr must be between 1 and n.chr, inclusive.")
 
   # thresholds
-  if(!missing(thresh)) {
+  if(!is.null(thresh)) {
     if(length(thresh)==1)
       thresh <- rep(thresh,n.cim+1)
     else
@@ -140,7 +140,7 @@ function(n.sim=1000, cim.steps=c(3,5,7,9,11),bic.mult=c(2,2.5,3),
 
 anal.multi2 <-
 function(n.sim=1000, cim.steps=c(3,5,7,9,11),bic.mult=c(2,2.5,3),
-         max.steps=13, n.perm=1000, alpha=0.05, thresh, drop=1.5,
+         max.steps=13, n.perm=1000, alpha=0.05, thresh=NULL, drop=1.5,
          n.ind=100, n.mar = rep(11,9), mar.sp = rep(10,10*9),
          n.mcmc=1000,mcmc.bic=2.56,
          qtl.chr = c(1,1,2,2,3,4,5), qtl.mar = c(4,8,4,8,6,4,1),
@@ -174,7 +174,7 @@ function(n.sim=1000, cim.steps=c(3,5,7,9,11),bic.mult=c(2,2.5,3),
     stop("Entries qtl.chr must be between 1 and n.chr, inclusive.")
 
   # thresholds
-  if(!missing(thresh)) {
+  if(!is.null(thresh)) {
     if(length(thresh)==1)
       thresh <- rep(thresh,n.cim+1)
     else

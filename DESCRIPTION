@@ -1,6 +1,6 @@
 Package: qtlsim
-Version: 0.73-3
-Date: 2015-07-23
+Version: 0.73-4
+Date: 2016-03-25
 Depends: graphics
 Title: Software for Testing QTL Analysis via Simulations
 Author: Karl W Broman <kbroman@biostat.wisc.edu>

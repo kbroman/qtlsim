@@ -5,11 +5,11 @@
 
 \description{Run multiple simulations of a backcross, analyzed using
   ANOVA, CIM and forward selection (with both BIC and permutation
-  tests).} 
+  tests).}
 
 \usage{
 anal.multi(n.sim=1000, cim.steps=c(3,5,7,9,11), bic.mult=c(2,2.5,3),
-           max.steps=13, n.perm=1000, alpha=0.05, thresh, drop=1.5,
+           max.steps=13, n.perm=1000, alpha=0.05, thresh=NULL, drop=1.5,
            n.ind=100, n.mar=rep(11,9), mar.sp=rep(10,10*9),
            qtl.chr=c(1,1,2,2,3,4,5), qtl.mar=c(4,8,4,8,6,4,1),
            qtl.dist=rep(0,7), qtl.eff=c(1,1,1,-1,1,1,1)/2,
@@ -24,7 +24,7 @@ anal.multi(n.sim=1000, cim.steps=c(3,5,7,9,11), bic.mult=c(2,2.5,3),
   \item{n.perm}{Number of permutation replicates in permutation tests.}
   \item{alpha}{Significance level in permutation tests.}
   \item{thresh}{LOD thresholds for ANOVA and CIM.  Should be length 1 or
-    1+length(cim.steps).  If missing and the chromosome structure and
+    1+length(cim.steps).  If NULL and the chromosome structure and
     number of individuals match simulations that I've already done, we
     use my estimated LOD thresholds.}
   \item{drop}{Drop in LOD that is required between inferred QTLs.
@@ -57,7 +57,7 @@ anal.multi(n.sim=1000, cim.steps=c(3,5,7,9,11), bic.mult=c(2,2.5,3),
 \examples{
 \dontrun{results <- anal.multi(n.sim=10)}
 }
-                    
+
 \references{
   Broman, K. W. (1997) Identifying quantitative trait loci in experimental
   crosses.  PhD dissertation, Department of Statistics, University of
