@@ -1,4 +1,4 @@
-useDynLib(qtlsim)
+useDynLib(qtlsim, .registration=TRUE)
 
 # Export functions
 export(anal.all, anal.leaps, anal.mcmc,
