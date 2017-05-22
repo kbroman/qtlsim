@@ -33,7 +33,7 @@ sim.mcmc(n.sim=1000, max.steps=28, bic.mult=2.5, n.steps=1000,
 
 \value{
   A list of three components.  The first is a list of length 5, whose
-  components correspond to the 
+  components correspond to the
   results of forward and backward selection, the same followed by
   branch-and-bound, with BIC, and MCMC.  (Each component of this list is
   itself a list of length n.sim, with each component giving the
@@ -44,17 +44,16 @@ sim.mcmc(n.sim=1000, max.steps=28, bic.mult=2.5, n.steps=1000,
   number of distinct models observed.
 }
 
-\author{Karl W Broman, \email{kbroman@biostat.wisc.edu} \cr
-\url{http://www.biostat.wisc.edu/~kbroman/software} }
+\author{Karl W Broman, \email{kbroman@biostat.wisc.edu}}
 
-\seealso{ \code{\link{simbc}}, \code{\link{anal.mcmc}}, 
+\seealso{ \code{\link{simbc}}, \code{\link{anal.mcmc}},
          \code{\link{anal.leaps}},
-	 \code{\link{anal.multi}} }
+     \code{\link{anal.multi}} }
 
 \examples{
 \dontrun{results <- sim.mcmc(n.sim=10)}
 }
-                    
+
 \references{
   Broman, K. W. (1997) Identifying quantitative trait loci in experimental
   crosses.  PhD dissertation, Department of Statistics, University of

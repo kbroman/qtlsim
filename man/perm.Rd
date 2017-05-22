@@ -21,8 +21,7 @@ perm(dat, n.perm=1000, alpha=0.05)
   A vector of marker indices.
 }
 
-\author{Karl W Broman, \email{kbroman@biostat.wisc.edu} \cr
-\url{http://www.biostat.wisc.edu/~kbroman/software} }
+\author{Karl W Broman, \email{kbroman@biostat.wisc.edu}}
 
 \seealso{ \code{\link{anal.all}}, \code{\link{anal.leaps}},
          \code{\link{anal.mcmc}}, \code{\link{simbc}} }
@@ -31,7 +30,7 @@ perm(dat, n.perm=1000, alpha=0.05)
 \dontrun{dat <- simbc()}
 \dontrun{results <- perm(dat)}
 }
-                    
+
 \references{
   Broman, K. W. (1997) Identifying quantitative trait loci in experimental
   crosses.  PhD dissertation, Department of Statistics, University of

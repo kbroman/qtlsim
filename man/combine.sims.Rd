@@ -11,7 +11,7 @@ combine.sims(\dots)
 }
 
 \arguments{
-  \item{\dots}{Two or more objects, of the form output from  
+  \item{\dots}{Two or more objects, of the form output from
   \code{\link{anal.multi}}.}
 }
 
@@ -20,8 +20,7 @@ combine.sims(\dots)
   \code{\link{anal.multi}}.
 }
 
-\author{Karl W Broman, \email{kbroman@biostat.wisc.edu} \cr
-\url{http://www.biostat.wisc.edu/~kbroman/software} }
+\author{Karl W Broman, \email{kbroman@biostat.wisc.edu}}
 
 \seealso{ \code{\link{anal.multi}},
   \code{\link{combine.mcmc}} }
@@ -31,6 +30,5 @@ combine.sims(\dots)
 \dontrun{output2 <- anal.multi(n.sim=10)}
 \dontrun{output <- combine.sims(output1, output2)}
 }
-                    
-\keyword{manip}
 
+\keyword{manip}

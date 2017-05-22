@@ -11,7 +11,7 @@ combine.mcmc(\dots)
 }
 
 \arguments{
-  \item{\dots}{Two or more objects, of the form output from  
+  \item{\dots}{Two or more objects, of the form output from
   \code{\link{sim.mcmc}}.}
 }
 
@@ -20,8 +20,7 @@ combine.mcmc(\dots)
   \code{\link{sim.mcmc}}.
 }
 
-\author{Karl W Broman, \email{kbroman@biostat.wisc.edu} \cr
-\url{http://www.biostat.wisc.edu/~kbroman/software} }
+\author{Karl W Broman, \email{kbroman@biostat.wisc.edu}}
 
 \seealso{ \code{\link{sim.mcmc}},
   \code{\link{combine.sims}} }
@@ -31,6 +30,5 @@ combine.mcmc(\dots)
 \dontrun{output2 <- sim.mcmc(n.sim=10)}
 \dontrun{output <- combine.mcmc(output1, output2)}
 }
-                    
-\keyword{manip}
 
+\keyword{manip}

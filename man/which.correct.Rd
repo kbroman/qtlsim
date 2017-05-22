@@ -15,8 +15,8 @@ which.correct(results, truth=rbind(c(1,1,2,2,3,4,5),c(4,8,4,8,6,4,1)),
 \arguments{
   \item{results}{A list (or a list of lists), with each component in the
     inner lists being either \code{numeric(0)} or a matrix whose columns
-    are identified QTLs, and rows are chromosome and marker numbers, 
-    respectively.} 
+    are identified QTLs, and rows are chromosome and marker numbers,
+    respectively.}
   \item{truth}{Matrix whose columns are the true QTLs, with rows giving
     the chromosome and marker numbers, respectively.}
   \item{within}{Distance (in number of markers) allowable between true
@@ -31,8 +31,7 @@ which.correct(results, truth=rbind(c(1,1,2,2,3,4,5),c(4,8,4,8,6,4,1)),
   of unlinked extraneous loci.
 }
 
-\author{Karl W Broman, \email{kbroman@biostat.wisc.edu} \cr
-\url{http://www.biostat.wisc.edu/~kbroman/software} }
+\author{Karl W Broman, \email{kbroman@biostat.wisc.edu}}
 
 \seealso{ \code{\link{anal.multi}},
   \code{\link{anal.mcmc}} }
@@ -42,6 +41,5 @@ which.correct(results, truth=rbind(c(1,1,2,2,3,4,5),c(4,8,4,8,6,4,1)),
 \dontrun{output1 <- anal.multi(dat)}
 \dontrun{output2 <- which.correct(output1)}
 }
-                    
-\keyword{manip}
 
+\keyword{manip}

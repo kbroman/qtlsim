@@ -51,8 +51,7 @@ anal.multi2(n.sim=1000, cim.steps=c(3,5,7,9,11), bic.mult=c(2,2.5,3),
   QTLs.
 }
 
-\author{Karl W Broman, \email{kbroman@biostat.wisc.edu} \cr
-\url{http://www.biostat.wisc.edu/~kbroman/software} }
+\author{Karl W Broman, \email{kbroman@biostat.wisc.edu}}
 
 \seealso{ \code{\link{simbc}}, \code{\link{sim.null}},
   \code{\link{sim.mcmc}}, \code{\link{anal.multi}} }

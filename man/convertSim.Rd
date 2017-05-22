@@ -19,11 +19,10 @@ convertSim(object, n.chr=9, chr.len=100)
 
 \value{
   An object of class \code{cross}.  See \code{\link[qtl]{read.cross}} for
-  details. 
+  details.
 }
 
-\author{Karl W Broman, \email{kbroman@biostat.wisc.edu} \cr
-\url{http://www.biostat.wisc.edu/~kbroman/software} }
+\author{Karl W Broman, \email{kbroman@biostat.wisc.edu}}
 
 \seealso{\code{\link[qtl]{read.cross}}, \code{\link{simbc}} }
 
@@ -31,5 +30,5 @@ convertSim(object, n.chr=9, chr.len=100)
 dat <- simbc()
 cross <- convertSim(dat, 9, chr.len=100)
 }
-                    
+
 \keyword{manip}

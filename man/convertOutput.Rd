@@ -23,8 +23,7 @@ convertOutput(object, n.mar=rep(11,9))
   and marker numbers, respectively.
 }
 
-\author{Karl W Broman, \email{kbroman@biostat.wisc.edu} \cr
-\url{http://www.biostat.wisc.edu/~kbroman/software} }
+\author{Karl W Broman, \email{kbroman@biostat.wisc.edu}}
 
 \seealso{ \code{\link{anal.leaps}},
   \code{\link{anal.mcmc}}, \code{\link{perm}},
@@ -37,6 +36,5 @@ res2 <- anal.leaps(dat, "backward", 2.1, 27)
 res <- lapply(list(res1,res2), convertOutput)
 out <- which.correct(res)
 }
-                    
-\keyword{manip}
 
+\keyword{manip}

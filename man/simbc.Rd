@@ -31,13 +31,12 @@ simbc(n.ind=100, n.mar=rep(11,9), mar.sp=rep(10,10*9),
   genotype data, and \code{pheno}, a vector of phenotypes.
 }
 
-\author{Karl W Broman, \email{kbroman@biostat.wisc.edu} \cr
-\url{http://www.biostat.wisc.edu/~kbroman/software} }
+\author{Karl W Broman, \email{kbroman@biostat.wisc.edu}}
 
 \seealso{ \code{\link{convertSim}} }
 
 \examples{
 dat <- simbc()
 }
-                    
+
 \keyword{datagen}

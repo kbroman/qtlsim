@@ -24,19 +24,18 @@ sim.null(n.ind=100, n.mar=rep(11,9), mar.sp=rep(10,10*9),
 
 \value{
   A matrix of size [n.sim x (1+length(cim.steps))] giving the maximum
-  LOD score for ANOVA and CIM (with the different values of cim.steps) 
+  LOD score for ANOVA and CIM (with the different values of cim.steps)
   for each simulation replicate.
 }
 
-\author{Karl W Broman, \email{kbroman@biostat.wisc.edu} \cr
-\url{http://www.biostat.wisc.edu/~kbroman/software} }
+\author{Karl W Broman, \email{kbroman@biostat.wisc.edu}}
 
 \seealso{ \code{\link{simbc}}, \code{\link{anal.multi}} }
 
 \examples{
 \dontrun{output <- sim.null()}
 }
-                    
+
 \references{
   Broman, K. W. (1997) Identifying quantitative trait loci in experimental
   crosses.  PhD dissertation, Department of Statistics, University of

@@ -17,8 +17,8 @@ anal.leaps(dat, method=c("forward","backward","forwback",
     data, as a matrix) and \code{pheno} (the phenotype data, as a vector).}
   \item{method}{Model search approach to use: forward selection,
                 backward elimination, forward selection followed by
-		backward elimination, or forward or backward selection
-		followed by branch-and-bound.}
+        backward elimination, or forward or backward selection
+        followed by branch-and-bound.}
   \item{bic.mult}{Multiplier for BIC, for choosing the size of the model.}
   \item{max.steps}{Maximum number of steps in forward selection.}
 }
@@ -28,8 +28,8 @@ anal.leaps(dat, method=c("forward","backward","forwback",
   selected and second component is the corresponding BIC-delta value.
 }
 
-\author{Karl W Broman, \email{kbroman@biostat.wisc.edu} \cr
-\url{http://www.biostat.wisc.edu/~kbroman/software} }
+\author{Karl W Broman, \email{kbroman@biostat.wisc.edu}}
+
 
 \seealso{ \code{\link{simbc}}, \code{\link{anal.all}},
          \code{\link{anal.mcmc}}, \code{\link{perm}} }
@@ -38,7 +38,7 @@ anal.leaps(dat, method=c("forward","backward","forwback",
 dat <- simbc(n.ind=100,qtl.eff=c(1,1,1,-1,1,1,1)*0.75)
 results <- anal.leaps(dat,method="forwback",bic.mult=2.56)
 }
-                    
+
 \references{
   Broman, K. W. (1997) Identifying quantitative trait loci in experimental
   crosses.  PhD dissertation, Department of Statistics, University of

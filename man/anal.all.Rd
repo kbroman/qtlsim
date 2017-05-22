@@ -21,18 +21,17 @@ anal.all(dat, cim.steps=7, max.steps=20)
   CIM, and a matrix of marker indices and RSS from forward selection
 }
 
-\author{Karl W Broman, \email{kbroman@biostat.wisc.edu} \cr
-\url{http://www.biostat.wisc.edu/~kbroman/software} }
+\author{Karl W Broman, \email{kbroman@biostat.wisc.edu}}
 
 \seealso{ \code{\link{simbc}}, \code{\link{anal.leaps}},
   \code{\link{anal.mcmc}}, \code{\link{perm}} }
-  
+
 
 \examples{
 dat <- simbc()
 results <- anal.all(dat)
 }
-                    
+
 \references{
   Broman, K. W. (1997) Identifying quantitative trait loci in experimental
   crosses.  PhD dissertation, Department of Statistics, University of

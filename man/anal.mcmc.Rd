@@ -25,8 +25,7 @@ anal.mcmc(dat, bic.mult=2.5, n.steps=1000, start=NULL)
   criterion, at each step of the chain
 }
 
-\author{Karl W Broman, \email{kbroman@biostat.wisc.edu} \cr
-\url{http://www.biostat.wisc.edu/~kbroman/software} }
+\author{Karl W Broman, \email{kbroman@biostat.wisc.edu}}
 
 \seealso{ \code{\link{simbc}}, \code{\link{anal.all}},
          \code{\link{anal.leaps}}, \code{\link{perm}} }
@@ -35,7 +34,7 @@ anal.mcmc(dat, bic.mult=2.5, n.steps=1000, start=NULL)
 dat <- simbc()
 results <- anal.mcmc(dat)
 }
-                    
+
 \references{
   Broman, K. W. (1997) Identifying quantitative trait loci in experimental
   crosses.  PhD dissertation, Department of Statistics, University of
