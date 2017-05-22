@@ -4,7 +4,7 @@
 
 [Karl W Broman](http://kbroman.org)
 
-[R/qtlsim](http://github.com/kbroman/qtlsim) is an R package for test QTL analysis via simulations.
+[R/qtlsim](https://github.com/kbroman/qtlsim) is an R package for test QTL analysis via simulations.
 
 ### License
 
@@ -18,4 +18,4 @@ merchantability or fitness for a particular purpose.  See the GNU
 General Public License for more details.
 
 A copy of the GNU General Public License, version 3, is available at
-<http://www.r-project.org/Licenses/GPL-3>
+<https://www.r-project.org/Licenses/GPL-3>
