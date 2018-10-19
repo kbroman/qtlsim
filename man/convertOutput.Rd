@@ -23,7 +23,7 @@ convertOutput(object, n.mar=rep(11,9))
   and marker numbers, respectively.
 }
 
-\author{Karl W Broman, \email{kbroman@biostat.wisc.edu}}
+\author{Karl W Broman, \email{broman@wisc.edu}}
 
 \seealso{ \code{\link{anal.leaps}},
   \code{\link{anal.mcmc}}, \code{\link{perm}},

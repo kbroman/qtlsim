@@ -21,7 +21,7 @@ plot_res(x, \dots, ylim=NULL)
   method, and the proportion of linked and unlinked extraneous loci.
 }
 
-\author{Karl W Broman, \email{kbroman@biostat.wisc.edu}}
+\author{Karl W Broman, \email{broman@wisc.edu}}
 
 \seealso{ \code{\link{anal.multi}}, \code{\link{anal.mcmc}},
   \code{\link{which.correct}} }

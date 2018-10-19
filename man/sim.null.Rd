@@ -28,7 +28,7 @@ sim.null(n.ind=100, n.mar=rep(11,9), mar.sp=rep(10,10*9),
   for each simulation replicate.
 }
 
-\author{Karl W Broman, \email{kbroman@biostat.wisc.edu}}
+\author{Karl W Broman, \email{broman@wisc.edu}}
 
 \seealso{ \code{\link{simbc}}, \code{\link{anal.multi}} }
 

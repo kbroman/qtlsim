@@ -44,7 +44,7 @@ sim.mcmc(n.sim=1000, max.steps=28, bic.mult=2.5, n.steps=1000,
   number of distinct models observed.
 }
 
-\author{Karl W Broman, \email{kbroman@biostat.wisc.edu}}
+\author{Karl W Broman, \email{broman@wisc.edu}}
 
 \seealso{ \code{\link{simbc}}, \code{\link{anal.mcmc}},
          \code{\link{anal.leaps}},

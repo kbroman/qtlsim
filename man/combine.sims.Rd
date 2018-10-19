@@ -20,7 +20,7 @@ combine.sims(\dots)
   \code{\link{anal.multi}}.
 }
 
-\author{Karl W Broman, \email{kbroman@biostat.wisc.edu}}
+\author{Karl W Broman, \email{broman@wisc.edu}}
 
 \seealso{ \code{\link{anal.multi}},
   \code{\link{combine.mcmc}} }

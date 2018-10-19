@@ -21,7 +21,7 @@ anal.all(dat, cim.steps=7, max.steps=20)
   CIM, and a matrix of marker indices and RSS from forward selection
 }
 
-\author{Karl W Broman, \email{kbroman@biostat.wisc.edu}}
+\author{Karl W Broman, \email{broman@wisc.edu}}
 
 \seealso{ \code{\link{simbc}}, \code{\link{anal.leaps}},
   \code{\link{anal.mcmc}}, \code{\link{perm}} }

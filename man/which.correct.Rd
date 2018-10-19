@@ -31,7 +31,7 @@ which.correct(results, truth=rbind(c(1,1,2,2,3,4,5),c(4,8,4,8,6,4,1)),
   of unlinked extraneous loci.
 }
 
-\author{Karl W Broman, \email{kbroman@biostat.wisc.edu}}
+\author{Karl W Broman, \email{broman@wisc.edu}}
 
 \seealso{ \code{\link{anal.multi}},
   \code{\link{anal.mcmc}} }

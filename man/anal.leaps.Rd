@@ -28,7 +28,7 @@ anal.leaps(dat, method=c("forward","backward","forwback",
   selected and second component is the corresponding BIC-delta value.
 }
 
-\author{Karl W Broman, \email{kbroman@biostat.wisc.edu}}
+\author{Karl W Broman, \email{broman@wisc.edu}}
 
 
 \seealso{ \code{\link{simbc}}, \code{\link{anal.all}},

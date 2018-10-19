@@ -25,7 +25,7 @@ anal.mcmc(dat, bic.mult=2.5, n.steps=1000, start=NULL)
   criterion, at each step of the chain
 }
 
-\author{Karl W Broman, \email{kbroman@biostat.wisc.edu}}
+\author{Karl W Broman, \email{broman@wisc.edu}}
 
 \seealso{ \code{\link{simbc}}, \code{\link{anal.all}},
          \code{\link{anal.leaps}}, \code{\link{perm}} }

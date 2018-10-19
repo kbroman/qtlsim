@@ -20,7 +20,7 @@ combine.mcmc(\dots)
   \code{\link{sim.mcmc}}.
 }
 
-\author{Karl W Broman, \email{kbroman@biostat.wisc.edu}}
+\author{Karl W Broman, \email{broman@wisc.edu}}
 
 \seealso{ \code{\link{sim.mcmc}},
   \code{\link{combine.sims}} }

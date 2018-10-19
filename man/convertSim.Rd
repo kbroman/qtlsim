@@ -22,7 +22,7 @@ convertSim(object, n.chr=9, chr.len=100)
   details.
 }
 
-\author{Karl W Broman, \email{kbroman@biostat.wisc.edu}}
+\author{Karl W Broman, \email{broman@wisc.edu}}
 
 \seealso{\code{\link[qtl]{read.cross}}, \code{\link{simbc}} }
 
