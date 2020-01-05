@@ -3,8 +3,10 @@ Version: 0.73-5
 Date: 2017-05-22
 Depends: graphics
 Title: Software for Testing QTL Analysis via Simulations
-Author: Karl W Broman <broman@wisc.edu>
+Author: Karl W Broman [aut, cre] (<https://orcid.org/0000-0002-4914-6671>)
 Maintainer: Karl W Broman <broman@wisc.edu>
+Authors@R: c(person("Karl W", "Broman", role=c("aut", "cre"),
+             email="broman@wisc.edu", comment=c(ORCID = "0000-0002-4914-6671")))
 Description: Software for testing QTL analysis via simulations.
 License: GPL-3
 Imports: leaps, qtl
