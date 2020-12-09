@@ -1,6 +1,6 @@
 ## R/qtlsim
 
-[![Build Status](https://travis-ci.org/kbroman/qtlsim.svg?branch=master)](https://travis-ci.org/kbroman/qtlsim)
+[![R build status](https://github.com/kbroman/qtlsim/workflows/R-CMD-check/badge.svg)](https://github.com/kbroman/qtlsim/actions)
 
 [Karl W Broman](http://kbroman.org)
 
