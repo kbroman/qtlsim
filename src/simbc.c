@@ -15,7 +15,6 @@
 #include <stdio.h>
 #include <R.h>
 #include <Rmath.h>
-#include <R_ext/PrtUtil.h>
 
 #include "simbc.h"
 
