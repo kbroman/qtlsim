@@ -57,7 +57,7 @@ sim.mcmc(n.sim=1000, max.steps=28, bic.mult=2.5, n.steps=1000,
 \references{
   Broman, K. W. (1997) Identifying quantitative trait loci in experimental
   crosses.  PhD dissertation, Department of Statistics, University of
-  California, Berkeley.
+  California, Berkeley. (\href{https://kbroman.org/pdfs/broman_thesis.pdf}{pdf})
 }
 
 \keyword{models}

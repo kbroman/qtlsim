@@ -35,7 +35,7 @@ results <- anal.all(dat)
 \references{
   Broman, K. W. (1997) Identifying quantitative trait loci in experimental
   crosses.  PhD dissertation, Department of Statistics, University of
-  California, Berkeley.
+  California, Berkeley. (\href{https://kbroman.org/pdfs/broman_thesis.pdf}{pdf})
 }
 
 \keyword{models}
