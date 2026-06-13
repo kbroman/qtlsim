@@ -9,7 +9,7 @@
 [R/qtlsim](https://github.com/kbroman/qtlsim) is an R package for test QTL analysis via simulations.
 It was used for the paper Broman and Speed (2002):
 
-> Broman KW**, Speed TP (2002)  A model
+> **Broman KW**, Speed TP (2002)  A model
 > selection approach for the identification of quantitative trait loci
 > in experimental crosses. [J Roy Stat Soc
 > B](https://rss.onlinelibrary.wiley.com/journal/14679868) 64:641-656
