@@ -4,8 +4,6 @@
 [![r-universe badge](https://kbroman.r-universe.dev/qtlsim/badges/version)](https://kbroman.r-universe.dev/qtlsim)
 [![zenodo DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5149490.svg)](https://doi.org/10.5281/zenodo.5149490)
 
-[Karl W Broman](https://kbroman.org)
-
 [R/qtlsim](https://github.com/kbroman/qtlsim) is an R package for test QTL analysis via simulations.
 It was used for the paper Broman and Speed (2002):
 
